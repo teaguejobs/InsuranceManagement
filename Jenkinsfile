@@ -9,9 +9,9 @@ node{
         docker = tool name: 'docker' , type: 'org.jenkinsci.plugins.docker.commons.tools.DockerTool'
         dockerCMD = "${docker}/bin/docker"
         tag="3.0"
-		dockerHubUser="anujsharma1990"
-		containerName="insure-me"
-		httpPort="8081"
+	dockerHubUser="anujsharma1990"
+	containerName="insure-me"
+	httpPort="8081"
     }
     
     stage('Code Checkout'){
