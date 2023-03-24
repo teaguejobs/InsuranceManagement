@@ -6,7 +6,7 @@ node{
         echo 'Initialize Environment'
         mavenHome = tool name: 'maven' , type: 'maven'
         mavenCMD = "${mavenHome}/bin/mvn"
-        docker = tool name: 'docker' , type: 'org.jenkinsci.plugins.docker.commons.tools.DockerTool'
+        docker = tool name: 'docker', type: 'dockerTool'
         dockerCMD = "${docker}/bin/docker"
         tag="3.0"
 	dockerHubUser="anujsharma1990"
