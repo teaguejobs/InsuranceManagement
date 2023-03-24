@@ -56,7 +56,7 @@ node{
 	
 	stage('Docker Container Deployment'){
 		sh "docker rm $containerName -f"
-		sh "docker pull $dockerHubUser/$containerName"
+		sh "docker pull $dockerHubUser/$containerName:$tag"
 		sh "docker run -d --rm -p $httpPort:$httpPort --name $containerName $dockerHubUser/$containerName:$tag"
 		echo "Application started on port: ${httpPort} (http)"
 	}
