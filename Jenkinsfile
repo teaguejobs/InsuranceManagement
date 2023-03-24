@@ -42,7 +42,7 @@ node{
 	
     stage('Docker Image Scan'){
         echo 'Scanning Docker image for vulnerbilities'
-        sh "${dockerCMD} build -t ${dockerHubUser}/insure-me:${tagName} ."
+        sh "${dockerCMD} build -t ${dockerHubUser}/insure-me:${tag} ."
     }   
 	
     stage('Publishing Image to DockerHub'){
