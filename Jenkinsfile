@@ -1,13 +1,11 @@
 node{
     
-    def mavenHome, mavenCMD, docker, dockerCMD, tag, dockerHubUser, containerName, httpPort = ""
+    def mavenHome, mavenCMD, docker, tag, dockerHubUser, containerName, httpPort = ""
     
     stage('Prepare Environment'){
         echo 'Initialize Environment'
         mavenHome = tool name: 'maven' , type: 'maven'
         mavenCMD = "${mavenHome}/bin/mvn"
-        docker = tool name: 'docker', type: 'dockerTool'
-        dockerCMD = "${docker}/bin/docker"
         tag="3.0"
 	dockerHubUser="anujsharma1990"
 	containerName="insure-me"
@@ -37,19 +35,19 @@ node{
     
     stage('Docker Image Build'){
         echo 'Creating Docker image'
-        sh "${dockerCMD} build -t $dockerHubUser/$containerName:$tag --pull --no-cache ."
+        sh "docker build -t $dockerHubUser/$containerName:$tag --pull --no-cache ."
     }
 	
     stage('Docker Image Scan'){
         echo 'Scanning Docker image for vulnerbilities'
-        sh "${dockerCMD} build -t ${dockerHubUser}/insure-me:${tag} ."
+        sh "docker build -t ${dockerHubUser}/insure-me:${tag} ."
     }   
 	
     stage('Publishing Image to DockerHub'){
         echo 'Pushing the docker image to DockerHub'
         withCredentials([usernamePassword(credentialsId: 'dockerHubAccount', usernameVariable: 'dockerUser', passwordVariable: 'dockerPassword')]) {
-			sh "${dockerCMD} login -u $dockerUser -p $dockerPassword"
-			sh "${dockerCMD} push $dockerUser/$containerName:$tag"
+			sh "docker login -u $dockerUser -p $dockerPassword"
+			sh "docker push $dockerUser/$containerName:$tag"
 			echo "Image push complete"
         } 
     }    
