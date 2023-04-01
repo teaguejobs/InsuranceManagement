@@ -1,6 +1,5 @@
 - name : Configure Docker on EC2 Instances
   hosts : localhost
-  become: true
   connection : ssh
   tasks : 
   - name: Deploy Docker Container
